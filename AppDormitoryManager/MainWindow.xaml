@@ -1,0 +1,33 @@
+﻿<Window x:Class="AppDormitoryManager.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:AppDormitoryManager"
+        mc:Ignorable="d"
+        Title="Авторизация" Height="350" Width="400">
+    <Grid>
+
+        <StackPanel HorizontalAlignment="Right" VerticalAlignment="Top">
+            <Button x:Name="btnSMSgen" Content="Снова СМС" Margin="5" Height="30" Width="120" VerticalAlignment="Center" HorizontalAlignment="Center" Click="btnSMScode_Click"/>
+            <TextBlock Text="Код из СМС сюда:" VerticalAlignment="Center" HorizontalAlignment="Center" Margin="5"/>
+            <TextBox x:Name="tbAccessCode" IsEnabled="False" KeyDown="AccessCodeTextBox_KeyDown" Margin="5" VerticalAlignment="Center" HorizontalAlignment="Center" Width="60"/>
+        </StackPanel>
+
+        <StackPanel VerticalAlignment="Bottom" HorizontalAlignment="Center" Margin="20">
+            <StackPanel HorizontalAlignment="Center">
+                <Image Source="IMG/iconavto.png" Height="95" Width="110" VerticalAlignment="Top" HorizontalAlignment="Left"/>
+            </StackPanel>
+            <Label Content="Логин:"/>
+            <TextBox x:Name="txtLogin" KeyDown="LoginTextBox_KeyDown" Width="200" Margin="6 2" HorizontalAlignment="Left" BorderThickness="2"/>
+            <Label Content="Пароль:"/>
+            <PasswordBox x:Name="txtPassword"  IsEnabled="False" KeyDown="PasswordBox_KeyDown" Margin="6 2" Width="200" HorizontalAlignment="Left"/>
+            <Button Name="CancelButton" Content="Сброс" Click="btnCancel_Click" Margin="8" Width="80" Height="24"/>
+        </StackPanel>
+        
+        <!--костыль-->
+        <Button Visibility="Hidden" Name="LoginButton" Content="Вход" Click="btnLogin_Click" VerticalAlignment="Center" IsEnabled="False" Margin="8" Width="80" Height="24"/>
+        
+        
+    </Grid>
+</Window>

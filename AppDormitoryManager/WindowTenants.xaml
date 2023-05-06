@@ -1,0 +1,15 @@
+﻿<Window x:Class="AppDormitoryManager.WindowTenants"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:AppDormitoryManager"
+        mc:Ignorable="d"
+        Title="Лист жильцов" Height="480" Width="1000">
+    <Grid>
+        <!--Для разных ролей здесь будет появлятся соответсвующий фрейм-->
+        <Frame x:Name="MainFrame">
+
+        </Frame>
+    </Grid>
+</Window>

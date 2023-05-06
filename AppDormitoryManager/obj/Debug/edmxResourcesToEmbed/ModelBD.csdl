@@ -1,0 +1,95 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema Namespace="dormitoryManagerBDModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+  <EntityType Name="Login">
+    <Key>
+      <PropertyRef Name="ID_Login" />
+    </Key>
+    <Property Name="ID_Login" Type="Int32" Nullable="false" />
+    <Property Name="LoginName" Type="String" MaxLength="30" FixedLength="false" Unicode="true" />
+    <Property Name="Password" Type="String" MaxLength="20" FixedLength="false" Unicode="true" />
+    <Property Name="Role" Type="Int32" />
+    <NavigationProperty Name="Users" Relationship="Self.FK_User_Login" FromRole="Login" ToRole="User" />
+  </EntityType>
+  <EntityType Name="Receipt">
+    <Key>
+      <PropertyRef Name="ID_Receipt" />
+    </Key>
+    <Property Name="ID_Receipt" Type="Int32" Nullable="false" />
+    <Property Name="TenantReceipt" Type="Int32" />
+    <Property Name="PayLiving" Type="Decimal" Precision="19" Scale="4" />
+    <Property Name="PayAddService" Type="Decimal" Precision="19" Scale="4" />
+    <Property Name="DataPay" Type="DateTime" Precision="0" />
+    <NavigationProperty Name="Tenant" Relationship="Self.FK_Receipt_Tenant" FromRole="Receipt" ToRole="Tenant" />
+  </EntityType>
+  <EntityType Name="sysdiagram">
+    <Key>
+      <PropertyRef Name="diagram_id" />
+    </Key>
+    <Property Name="name" Type="String" MaxLength="128" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="principal_id" Type="Int32" Nullable="false" />
+    <Property Name="diagram_id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="version" Type="Int32" />
+    <Property Name="definition" Type="Binary" MaxLength="Max" FixedLength="false" />
+  </EntityType>
+  <EntityType Name="Tenant">
+    <Key>
+      <PropertyRef Name="ID_Tenant" />
+    </Key>
+    <Property Name="ID_Tenant" Type="Int32" Nullable="false" />
+    <Property Name="FullNameTenant" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="RoomTenant" Type="Int32" />
+    <Property Name="Phone" Type="Int32" />
+    <Property Name="Email" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="DateChecin" Type="DateTime" Precision="0" />
+    <Property Name="DateEviction" Type="DateTime" Precision="0" />
+    <NavigationProperty Name="Receipts" Relationship="Self.FK_Receipt_Tenant" FromRole="Tenant" ToRole="Receipt" />
+  </EntityType>
+  <EntityType Name="User">
+    <Key>
+      <PropertyRef Name="ID_User" />
+    </Key>
+    <Property Name="ID_User" Type="Int32" Nullable="false" />
+    <Property Name="FullNameUser" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+    <Property Name="LoginUser" Type="Int32" />
+    <NavigationProperty Name="Login" Relationship="Self.FK_User_Login" FromRole="User" ToRole="Login" />
+  </EntityType>
+  <Association Name="FK_User_Login">
+    <End Role="Login" Type="Self.Login" Multiplicity="0..1" />
+    <End Role="User" Type="Self.User" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Login">
+        <PropertyRef Name="ID_Login" />
+      </Principal>
+      <Dependent Role="User">
+        <PropertyRef Name="LoginUser" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Receipt_Tenant">
+    <End Role="Tenant" Type="Self.Tenant" Multiplicity="0..1" />
+    <End Role="Receipt" Type="Self.Receipt" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Tenant">
+        <PropertyRef Name="ID_Tenant" />
+      </Principal>
+      <Dependent Role="Receipt">
+        <PropertyRef Name="TenantReceipt" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <EntityContainer Name="dormitoryManagerBDEntities" annotation:LazyLoadingEnabled="true">
+    <EntitySet Name="Logins" EntityType="Self.Login" />
+    <EntitySet Name="Receipts" EntityType="Self.Receipt" />
+    <EntitySet Name="sysdiagrams" EntityType="Self.sysdiagram" />
+    <EntitySet Name="Tenants" EntityType="Self.Tenant" />
+    <EntitySet Name="Users" EntityType="Self.User" />
+    <AssociationSet Name="FK_User_Login" Association="Self.FK_User_Login">
+      <End Role="Login" EntitySet="Logins" />
+      <End Role="User" EntitySet="Users" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Receipt_Tenant" Association="Self.FK_Receipt_Tenant">
+      <End Role="Tenant" EntitySet="Tenants" />
+      <End Role="Receipt" EntitySet="Receipts" />
+    </AssociationSet>
+  </EntityContainer>
+</Schema>
